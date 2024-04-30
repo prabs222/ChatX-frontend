@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
-function Login({ setIsAuthenticated }) {
+function Login({ setIsAuthenticated, setIsAdmin}) {
   const navigate = useNavigate();
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [formData, setFormData] = useState({
@@ -24,10 +24,20 @@ function Login({ setIsAuthenticated }) {
         const token = data.token;
         localStorage.setItem("userid", data.user.id);
         document.cookie = `token=${token}; path=/`;
+
+
+
         setIsAuthenticated(true);
         toast.success("Login succesfull")
-        navigate("/myrooms");
+        console.log(data);
+        if (data.is_admin) { 
+          navigate("/admin/room"); 
+          setIsAdmin(true);
+        } else {
+          navigate("/myrooms"); 
+        }
       })
+      
       .catch((error) => {
         toast.error("Login failed")
         console.log(error);
