@@ -30,7 +30,6 @@ const Rooms = ({ rooms, setRooms }) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const data = await response.json();
       toast.success("Joined successfully");
 
       setRooms((prevRooms) => prevRooms.filter((room) => room.id !== currentRoomId));
@@ -39,17 +38,28 @@ const Rooms = ({ rooms, setRooms }) => {
     }
   };
 
+  // useEffect(() => {
+  //   if (currentRoomId === null) {
+  //     return;
+  //   }
+  //   const authToken = getAuthTokenFromCookie();
+  //   if (authToken) {
+  //     joinRoom(authToken);
+  //   } else {
+  //     console.error("No authentication token found");
+  //   }
+  // }, [currentRoomId]);
   useEffect(() => {
     if (currentRoomId === null) {
       return;
     }
     const authToken = getAuthTokenFromCookie();
     if (authToken) {
-      joinRoom(authToken);
+      joinRoom(authToken, currentRoomId); // Pass currentRoomId as argument
     } else {
       console.error("No authentication token found");
     }
-  }, [currentRoomId]);
+  }, [currentRoomId, joinRoom]); 
 
   return (
     <div>

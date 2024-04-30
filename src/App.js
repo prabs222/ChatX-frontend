@@ -1,14 +1,12 @@
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes  } from 'react-router-dom';
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, } from 'react';
 
 import Navbar from './components/common/Navbar';
 import Explore from './pages/Explore';
 import MyRooms from './pages/MyRooms';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
-import withAuthentication from './helpers/withAuthentication';
-import RoomChat from './components/myRoomComponents/RoomChat';
 
 
 

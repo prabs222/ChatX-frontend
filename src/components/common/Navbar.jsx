@@ -1,25 +1,31 @@
-import React, { useState, useEffect } from 'react'
+import React, {  useEffect } from 'react'
 import logo from '../../assets/ChatX.png'
 import { Link, useNavigate } from 'react-router-dom'
-import { useLocation } from 'react-router-dom'
 
 const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
 
-    const location = useLocation();
     const navigate = useNavigate();
 
 
 
+    // useEffect(() => {
+    //     const token = document.cookie.split('; ').find(row => row.startsWith('token='));
+    //     if (token) {
+    //         setIsAuthenticated(true);
+    //     } else {
+    //         setIsAuthenticated(false);
+    //     }
+    // }, [isAuthenticated]);
     useEffect(() => {
-
-
         const token = document.cookie.split('; ').find(row => row.startsWith('token='));
-        if (token) {
-            setIsAuthenticated(true);
-        } else {
-            setIsAuthenticated(false);
+        const isAuthenticated = !!token; // Convert token presence to boolean
+    
+        // Update isAuthenticated state only if it has changed
+        if (isAuthenticated !== isAuthenticated) {
+            setIsAuthenticated(isAuthenticated);
         }
-    }, [isAuthenticated]);
+    }, []);
+    
 
     const handleLogout = () => {
         document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';

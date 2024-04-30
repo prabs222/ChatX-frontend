@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Message from './Message'
 import MessageInput from './MessageInput'
 import { useParams } from 'react-router-dom'
@@ -57,7 +57,7 @@ function RoomChat() {
       }
       var datalist = []
       response.data.results.forEach(element => {
-        if(element.user.id == localStorage.getItem("userid")){
+        if(element.user.id === localStorage.getItem("userid")){
           datalist.push({"message":element.message,"name": element.user.name, "sent":true})
         }else{
           datalist.push({"message":element.message,"name": element.user.name,"sent":false})
@@ -89,7 +89,7 @@ function RoomChat() {
       }
       var datalist = []
       response.data.results.forEach(element => {
-        if(element.user.id == localStorage.getItem("userid")){
+        if(element.user.id === localStorage.getItem("userid")){
           datalist.push({"message":element.message,"name":element.user.name,"sent":true})
         }else{
           datalist.push({"message":element.message,"name":element.user.name,"sent":false})
@@ -106,11 +106,30 @@ function RoomChat() {
 
 
 
+  // useEffect(() => {
+  //   const authToken = getAuthTokenFromCookie();
+
+  //   if (authToken && id) {
+
+  //       get_new_messages(id, authToken); 
+
+  //       const newsocket = new WebSocket(`${BASE_URL_SOCKET}ws/chat/${id}/?token=${authToken}`);
+
+  //       newsocket.onopen = () => console.log("CONNECTION ESTABLISHED");
+  //       newsocket.onclose = () => console.log("CONNECTION CLOSED");
+  //       newsocket.onerror = (e) => console.error("ERROR", e);
+
+  //       setSocket(newsocket);
+
+  //       return () => {
+  //           newsocket.close();
+  //       };
+  //   }
+  // }, [id]); 
   useEffect(() => {
     const authToken = getAuthTokenFromCookie();
 
     if (authToken && id) {
-
         get_new_messages(id, authToken); 
 
         const newsocket = new WebSocket(`${BASE_URL_SOCKET}ws/chat/${id}/?token=${authToken}`);
@@ -125,7 +144,8 @@ function RoomChat() {
             newsocket.close();
         };
     }
-  }, [id]); 
+}, [id, get_new_messages]); 
+
 
 
   useEffect(() => {
