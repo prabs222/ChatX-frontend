@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const JoinedRooms = () => {
   const [userList, setUserList] = useState([]);
   const [userLoader, setUserLoader] = useState(true);
-  const BASE_URL = "http://192.168.30.26:8000/";
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const navigate = useNavigate();
 
   const getAuthTokenFromCookie = () => {
@@ -44,6 +44,7 @@ const JoinedRooms = () => {
           setUserLoader(false);
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleRoomClick = (roomId) => {

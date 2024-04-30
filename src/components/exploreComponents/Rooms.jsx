@@ -4,7 +4,7 @@ import { TbMessageSearch } from "react-icons/tb";
 
 
 const Rooms = ({ rooms, setRooms }) => {
-  const BASE_URL = "http://192.168.30.26:8000/";
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
 
   const [currentRoomId, setCurrentRoomId] = useState(null);
 
@@ -19,60 +19,50 @@ const Rooms = ({ rooms, setRooms }) => {
     return null;
   };
 
-  const joinRoom = async (authToken) => {
-    try {
-      const response = await fetch(`${BASE_URL}join-room/${currentRoomId}/`, {
-        method: "POST",
-        headers: {
-          'Authorization': `Bearer ${authToken}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      toast.success("Joined successfully");
-
-      setRooms((prevRooms) => prevRooms.filter((room) => room.id !== currentRoomId));
-    } catch (error) {
-      console.error('Failed to fetch data:', error);
-    }
-  };
-
-  // useEffect(() => {
-  //   if (currentRoomId === null) {
-  //     return;
-  //   }
-  //   const authToken = getAuthTokenFromCookie();
-  //   if (authToken) {
-  //     joinRoom(authToken);
-  //   } else {
-  //     console.error("No authentication token found");
-  //   }
-  // }, [currentRoomId]);
   useEffect(() => {
     if (currentRoomId === null) {
       return;
     }
     const authToken = getAuthTokenFromCookie();
     if (authToken) {
-      joinRoom(authToken, currentRoomId); // Pass currentRoomId as argument
+      const joinRoom = async (authToken) => {
+        try {
+          const response = await fetch(`${BASE_URL}join-room/${currentRoomId}/`, {
+            method: "POST",
+            headers: {
+              'Authorization': `Bearer ${authToken}`,
+            },
+          });
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          toast.success("Joined successfully");
+
+          setRooms((prevRooms) => prevRooms.filter((room) => room.id !== currentRoomId));
+        } catch (error) {
+          console.error('Failed to fetch data:', error);
+        }
+      };
+      joinRoom(authToken);
     } else {
       console.error("No authentication token found");
     }
-  }, [currentRoomId, joinRoom]); 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentRoomId]);
+
 
   return (
     <div>
       <h2 className='text-4xl font-bold text-white border-b border-richblack-600 pb-2'>Rooms</h2>
-      
+
       {rooms.length === 0 ? (
         <div className='flex flex-col items-center justify-center mt-28'>
-        <div className='text-[10rem]'>
+          <div className='text-[10rem]'>
 
-        <TbMessageSearch/>
+            <TbMessageSearch />
+          </div>
+          <p className='text-4xl font-semibold mt-4 text-center'>You broke the record ! <br /> You have joined all available rooms</p>
         </div>
-        <p className='text-4xl font-semibold mt-4 text-center'>You broke the record ! <br /> You have joined all available rooms</p>
-      </div>
       ) : (
         <ul className='flex flex-row flex-wrap gap-2 mt-2'>
           {rooms.map((room, index) => (

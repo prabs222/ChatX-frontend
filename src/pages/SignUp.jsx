@@ -7,7 +7,7 @@ import axios from 'axios';
 
 function SignUp() {
   const navigate = useNavigate();
-  const BASE_URL = "http://192.168.30.26:8000/";
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [formData, setFormData] = useState({
     email: "",
     first_name: "",
@@ -26,10 +26,10 @@ function SignUp() {
           },
         }
       );
-        toast.success("Sign Up succesfull")
+      toast.success("Sign Up succesfull")
       const data = response.data;
       navigate("/explore");
-  
+
       console.log(data);
     } catch (error) {
       if (error.response) {
@@ -49,7 +49,7 @@ function SignUp() {
     <div className='flex justify-center'>
       <div className='container flex flex-col items-center border w-fit border-richblack-700 mt-4 p-10 rounded-md'>
         <h2 className='text-4xl font-bold'>Sign Up</h2>
-        
+
         {/* Email input */}
         <div className='mt-3 w-[30rem]'>
           <label htmlFor="email">Email</label>
@@ -57,7 +57,7 @@ function SignUp() {
           <input
             id="email"
             type='email'
-            className='p-4 rounded-md bg-richblack-800 w-full' 
+            className='p-4 rounded-md bg-richblack-800 w-full'
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           />
         </div>
@@ -112,9 +112,9 @@ function SignUp() {
 
         {/* Submit button */}
         <div className='mt-3'>
-        <Button variant="contained" onClick={handleFormSubmit}>
-          Register
-        </Button>
+          <Button variant="contained" onClick={handleFormSubmit}>
+            Register
+          </Button>
         </div>
       </div>
     </div>

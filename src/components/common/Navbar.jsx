@@ -8,24 +8,17 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
 
 
 
-    // useEffect(() => {
-    //     const token = document.cookie.split('; ').find(row => row.startsWith('token='));
-    //     if (token) {
-    //         setIsAuthenticated(true);
-    //     } else {
-    //         setIsAuthenticated(false);
-    //     }
-    // }, [isAuthenticated]);
     useEffect(() => {
         const token = document.cookie.split('; ').find(row => row.startsWith('token='));
-        const isAuthenticated = !!token; // Convert token presence to boolean
-    
-        // Update isAuthenticated state only if it has changed
-        if (isAuthenticated !== isAuthenticated) {
-            setIsAuthenticated(isAuthenticated);
+        if (token) {
+            setIsAuthenticated(true);
+        } else {
+            setIsAuthenticated(false);
         }
-    }, []);
-    
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isAuthenticated]);
+
 
     const handleLogout = () => {
         document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';

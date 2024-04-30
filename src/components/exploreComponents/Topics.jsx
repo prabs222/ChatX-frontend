@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const Topics = ({ topics, setRooms }) => {
-    const BASE_URL = "http://192.168.30.26:8000/";
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
 
     const [selectedTopicId, setSelectedTopicId] = useState(null); 
     const [error, setError] = useState(null); 
@@ -32,6 +32,7 @@ const Topics = ({ topics, setRooms }) => {
             console.log("Fetching topic data for:", selectedTopicId);
             fetchTopicData(selectedTopicId);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedTopicId]); 
 
     return (
