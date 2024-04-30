@@ -1,0 +1,142 @@
+html, body{
+  overflow-x: hidden;
+  /* overflow-y: hidden; */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body{
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.chat-container{
+  display: flex;
+  height: 90vh;
+  /* background-color: #ffffff; */
+}
+
+.sidebar{
+  flex: 1;
+  /* background-color: #2c3e50; */
+  /* color: #ffffff; */
+  /* padding: 20px; */
+  height:90vh;
+  overflow-y: auto;
+}
+
+.chat-area{
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header{
+  /* background-color: #3498db; */
+  /* color: #ffffff; */
+  padding: 15px;
+  text-align: center;
+}
+
+.messages{
+  flex: 1;
+  padding: 20px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.message{
+  margin-bottom: 15px;
+}
+
+.sent{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.recieved{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.message-bubble {
+  padding-block: 5px;
+  padding-inline: 10px;
+  border-radius: 10px;
+  max-width: 400px; 
+  word-wrap: break-word; /* Wraps text within defined boundaries */
+}
+
+.sent .message-bubble {
+  background-color: #3498db;
+  color: #ffffff;
+  border-bottom-right-radius: 0;
+}
+
+.recieved .message-bubble {
+  background-color: #e5e5e5;
+  color: black;
+  border-bottom-left-radius: 0;
+}
+.message-input{
+  /* background-color: #ffffff; */
+  padding-block: 15px;
+  margin-top: 1rem;
+  border-top: 1px solid #3b3b3b;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.message-input input{
+  background-color: #2C333F;
+  flex: 1;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  resize: none;
+  outline: none;
+}
+
+.message-input button{
+  background-color: #3498db;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  padding: 10px 20px;
+  /* margin-top: 10px; */
+}
+
+
+.messages::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.messages::-webkit-scrollbar-track {
+  background: #161D29; 
+}
+
+/* Handle */
+.messages::-webkit-scrollbar-thumb {
+  background: #2C333F; 
+}
+
+/* Handle on hover */
+.messages::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
